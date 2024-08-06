@@ -30,7 +30,7 @@ import InformationSettings from "./pages/settings/InformationSettings";
 import WithdrawalSettings from "./pages/settings/WithdrawalSettings";
 import Tracker from "./pages/tracker/Tracker";
 import Charge from "./pages/shop/Charge";
-// import PaymentResult from "./pages/shop/PaymentResult";
+import PaymentResult from "./pages/shop/PaymentResult";
 
 function App() {
   return (
