@@ -1,6 +1,5 @@
-// App.js
-
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useContext } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 import GlobalStyle from "./styles/GlobalStyle";
 import Login from "./pages/auth/Login";
 import KakaoLogin from "./pages/auth/KakaoLogin";
@@ -30,44 +29,221 @@ import InformationSettings from "./pages/settings/InformationSettings";
 import WithdrawalSettings from "./pages/settings/WithdrawalSettings";
 import Tracker from "./pages/tracker/Tracker";
 import Charge from "./pages/shop/Charge";
-// import PaymentResult from "./pages/shop/PaymentResult";
+import PaymentResult from "./pages/shop/PaymentResult";
+import ProtectedRoute from "./pages/auth/ProtectedRoute";
+import { AuthContext } from "./pages/auth/AuthContext";
 
 function App() {
+  const { accessToken } = useContext(AuthContext);
+
   return (
-    <Router>
+    <>
       <GlobalStyle />
       <Routes>
         <Route path="/auth/login" element={<Login />} />
         <Route path="/auth/callback/kakao" element={<KakaoLogin />} />
         <Route path="/auth/callback/google" element={<GoogleLogin />} />
         <Route path="/auth/signUp" element={<Signup />} />
-        <Route path="/" element={<Main />} />
-        <Route path="/leftWall" element={<LeftWall />} />
-        <Route path="/furniture" element={<Furniture />} />
-        <Route path="/sofa" element={<Sofa />} />
-        <Route path="/rightWall" element={<RightWall />} />
-        <Route path="/leftAccessory" element={<LeftAccessory />} />
-        <Route path="/sideTable" element={<SideTable />} />
-        <Route path="/toy" element={<Toy />} />
-        <Route path="/rightAccessory" element={<RightAccessory />} />
-        <Route path="/wallpaper" element={<Wallpaper />} />
-        <Route path="/flooring" element={<Flooring />} />
-        <Route path="/rug" element={<Rug />} />
-        <Route path="/gift" element={<Gift />} />
-        <Route path="/object" element={<Object />} />
-        <Route path="/shop" element={<Shop />} />
-        <Route path="/payment" element={<Payment />} />
-        <Route path="/payment-result" element={<PaymentResult />} />
-        <Route path="/charge" element={<Charge />} />
-        <Route path="/chat" element={<Chat />} />
-        <Route path="/friends" element={<Friends />} />
-        <Route path="/edit-setting" element={<EditSettings />} />
-        <Route path="/information-setting" element={<InformationSettings />} />
-        <Route path="/withdrawal-setting" element={<WithdrawalSettings />} />
-        <Route path="/settings" element={<Settings />} />
-        <Route path="/tracker" element={<Tracker />} />
+        <Route
+          path="/"
+          element={
+            accessToken ? <Main /> : <Navigate to="/auth/login" replace />
+          }
+        />
+        <Route
+          path="/leftWall"
+          element={
+            <ProtectedRoute>
+              <LeftWall />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/furniture"
+          element={
+            <ProtectedRoute>
+              <Furniture />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/sofa"
+          element={
+            <ProtectedRoute>
+              <Sofa />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/rightWall"
+          element={
+            <ProtectedRoute>
+              <RightWall />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/leftAccessory"
+          element={
+            <ProtectedRoute>
+              <LeftAccessory />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/sideTable"
+          element={
+            <ProtectedRoute>
+              <SideTable />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/toy"
+          element={
+            <ProtectedRoute>
+              <Toy />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/rightAccessory"
+          element={
+            <ProtectedRoute>
+              <RightAccessory />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/wallpaper"
+          element={
+            <ProtectedRoute>
+              <Wallpaper />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/flooring"
+          element={
+            <ProtectedRoute>
+              <Flooring />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/rug"
+          element={
+            <ProtectedRoute>
+              <Rug />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/gift"
+          element={
+            <ProtectedRoute>
+              <Gift />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/object"
+          element={
+            <ProtectedRoute>
+              <Object />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/shop"
+          element={
+            <ProtectedRoute>
+              <Shop />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/payment"
+          element={
+            <ProtectedRoute>
+              <Payment />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/payment-result"
+          element={
+            <ProtectedRoute>
+              <PaymentResult />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/charge"
+          element={
+            <ProtectedRoute>
+              <Charge />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/chat"
+          element={
+            <ProtectedRoute>
+              <Chat />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/friends"
+          element={
+            <ProtectedRoute>
+              <Friends />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/edit-setting"
+          element={
+            <ProtectedRoute>
+              <EditSettings />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/information-setting"
+          element={
+            <ProtectedRoute>
+              <InformationSettings />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/withdrawal-setting"
+          element={
+            <ProtectedRoute>
+              <WithdrawalSettings />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/settings"
+          element={
+            <ProtectedRoute>
+              <Settings />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/tracker"
+          element={
+            <ProtectedRoute>
+              <Tracker />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
-    </Router>
+    </>
   );
 }
 

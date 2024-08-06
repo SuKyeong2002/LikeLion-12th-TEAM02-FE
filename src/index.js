@@ -5,6 +5,8 @@ import { ThemeProvider } from "styled-components";
 import theme from "./styles/theme";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { RecoilRoot } from "recoil";
+import { BrowserRouter as Router } from "react-router-dom";
+import { AuthProvider } from "./pages/auth/AuthContext";
 
 const clientId = process.env.REACT_APP_G_CLIENT_ID;
 
@@ -13,7 +15,11 @@ root.render(
   <GoogleOAuthProvider clientId={clientId}>
     <ThemeProvider theme={theme}>
       <RecoilRoot>
-        <App />
+        <Router>
+          <AuthProvider>
+            <App />
+          </AuthProvider>
+        </Router>
       </RecoilRoot>
     </ThemeProvider>
   </GoogleOAuthProvider>

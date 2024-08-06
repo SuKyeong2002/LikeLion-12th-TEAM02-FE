@@ -1,22 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import KakaoIcon from "../../assets/icons/Kakao.svg";
 import GoogleIcon from "../../assets/icons/Google.svg";
+import { AuthContext } from "./AuthContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const navigate = useNavigate(); // useNavigate 훅 사용
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  // 카카오 로그인 URL을 정의
   const K_REST_API_KEY = process.env.REACT_APP_K_REST_API_KEY;
   const K_REDIRECT_URI = `https://moodfriend.site/api/v1/auth/callback/kakao`;
   const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${K_REST_API_KEY}&redirect_uri=${K_REDIRECT_URI}&response_type=code`;
 
-  // 구글 로그인 URL을 정의
   const G_CLIENT_ID = process.env.REACT_APP_G_CLIENT_ID;
   const G_REDIRECT_URI = `https://moodfriend.site/api/v1/auth/callback/google`;
   const googleURL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${G_CLIENT_ID}&redirect_uri=${G_REDIRECT_URI}&response_type=code&scope=email%20profile`;
@@ -39,8 +39,7 @@ const Login = () => {
       const { accessToken, refreshToken } = response.data.data;
 
       if (accessToken) {
-        localStorage.setItem("accessToken", accessToken);
-        localStorage.setItem("refreshToken", refreshToken);
+        login(accessToken, refreshToken);
 
         alert("로그인 성공!");
         navigate("/"); // 메인 화면으로 이동
@@ -124,7 +123,7 @@ const Login = () => {
 
 export default Login;
 
-// 최상위 부모 요소의 width와 height를 고정
+// 스타일드 컴포넌트...
 const Container = styled.div`
   display: flex;
   justify-content: center;
